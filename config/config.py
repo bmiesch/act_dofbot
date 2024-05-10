@@ -19,9 +19,9 @@ os.environ['DEVICE'] = device
 # task config (you can add new tasks)
 TASK_CONFIG = {
     'dataset_dir': DATA_DIR,
-    'episode_len': 58, # 300
-    'state_dim': 6, # 5
-    'action_dim': 6, # 5
+    'episode_len': 58,
+    'state_dim': 6,
+    'action_dim': 6,
     'cam_width': 240, # 640
     'cam_height': 240, # 480
     'camera_names': ['camera1'],
@@ -33,7 +33,7 @@ TASK_CONFIG = {
 POLICY_CONFIG = {
     'lr': 1e-5,
     'device': device,
-    'num_queries': 58, # 100
+    'num_queries': 100,
     'kl_weight': 10,
     'hidden_dim': 512,
     'dim_feedforward': 3200,

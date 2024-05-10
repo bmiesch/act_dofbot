@@ -226,3 +226,11 @@ def degrees_to_radians(degrees):
 def radians_to_degrees(radians):
     """Convert radians to degrees without normalization."""
     return radians * (180 / np.pi)
+
+def interpolate_joints(current_joints, next_joints):
+    """ Linearly interpolate between two sets of joint angles and convert to integers. """
+    interpolated_joints = []
+    for cj, nj in zip(current_joints, next_joints):
+        interpolated_value = (cj + nj) / 2
+        interpolated_joints.append(int(interpolated_value))  # Convert to int
+    return interpolated_joints
