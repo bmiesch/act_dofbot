@@ -1,8 +1,10 @@
 # Imitation Learning for Yahboom Dofbot
 This repository contains a re-adapatation of [Action Chunking Transformer](https://github.com/tonyzhaozh/act/tree/main) that works for this [Yahboom Dofbot Jetson Nano](https://category.yahboom.net/products/dofbot-jetson_nano?variant=33009975361620). 
 
+It isn't polished or robust by any means but it works! \
 Instead of using a teleoperated leader arm to collect _action_ data, the _action_ data is simulated by interpolating between the current joint positions and the next joint positions.
 
+https://github.com/bmiesch/act_dofbot/assets/96878387/80e3dff6-f465-4216-9ad5-688f12d8125b
 
 ## Setup
 In PyTorch 1.10.0, please see the instructions below.
