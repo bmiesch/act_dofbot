@@ -144,7 +144,7 @@ class RobotController:
             num_queries = policy_config['num_queries']
         
         if policy_config['temporal_agg']:
-            all_time_actions = torch.zeros([cfg['episode_len'], cfg['episode_len']+num_queries, cfg['state_dim']]).to(device)
+            all_time_actions = torch.zeros([cfg['episode_len'], cfg['episode_len']+num_queries, cfg['state_dim']]).to(self.device)
         # qpos_history = torch.zeros((1, cfg['episode_len'], cfg['state_dim'])).to(device)
 
         with torch.inference_mode():
@@ -177,7 +177,7 @@ class RobotController:
                     k = 0.01
                     exp_weights = np.exp(-k * np.arange(len(actions_for_curr_step)))
                     exp_weights = exp_weights / exp_weights.sum()
-                    exp_weights = torch.from_numpy(exp_weights.astype(np.float32)).to(device).unsqueeze(dim=1)
+                    exp_weights = torch.from_numpy(exp_weights.astype(np.float32)).to(self.device).unsqueeze(dim=1)
                     raw_action = (actions_for_curr_step * exp_weights).sum(dim=0, keepdim=True)
                 else:
                     print("index: ", t % query_frequency)
