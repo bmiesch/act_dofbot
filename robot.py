@@ -58,7 +58,7 @@ class RoboticArm:
         """
         Returns the current joint positions of the robotic arm, with retries for null values.
         """
-        max_retries = 3  # Maximum number of retries per servo
+        max_retries = 5  # Maximum number of retries per servo
         joint_positions = []
         for i in range(6):
             retries = 0

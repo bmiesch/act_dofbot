@@ -126,6 +126,11 @@ if __name__ == '__main__':
     data_dir = os.path.join(task_cfg['dataset_dir'], task)
     num_episodes = len(os.listdir(data_dir))
 
+    # check if episode_-1.hdf5 exists and adjust num_episodes if it does
+    episode_path = os.path.join(data_dir, 'episode_-1.hdf5')
+    if os.path.exists(episode_path):
+        num_episodes -= 1
+
     # load data
     train_dataloader, val_dataloader, stats, _ = load_data(data_dir, num_episodes, task_cfg['camera_names'],
                                                             train_cfg['batch_size_train'], train_cfg['batch_size_val'])

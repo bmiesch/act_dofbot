@@ -84,7 +84,7 @@ class PickAndPlace:
         rospy.loginfo("Moved over blocks position")
         sleep(1)
         if data_collection is not None:
-            data_collection.start_task_data_collection()
+            data_collection.start_episode_data_collection()
 
         # Move to block position
         self.robotic_arm.move_servos(block_joints, 1500)
@@ -116,7 +116,7 @@ class PickAndPlace:
         rospy.loginfo("Back to over block's position")
         sleep(0.5)
         if data_collection is not None:
-            data_collection.stop_task_data_collection(cur_iteration)
+            data_collection.stop_episode_data_collection(cur_iteration)
         sleep(1)
         
         # Reset

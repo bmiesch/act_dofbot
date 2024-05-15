@@ -1,6 +1,8 @@
 # Imitation Learning for Yahboom Dofbot
 This repository contains a re-adapatation of [Action Chunking Transformer](https://github.com/tonyzhaozh/act/tree/main) that works for this [Yahboom Dofbot Jetson Nano](https://category.yahboom.net/products/dofbot-jetson_nano?variant=33009975361620). 
 
+Data is collected for training by recording the Robotic Arm completing the _game_ with classical controls. \
+
 It isn't polished or robust by any means but it works! \
 Instead of using a teleoperated leader arm to collect _action_ data, the _action_ data is simulated by interpolating between the current joint positions and the next joint positions.
 
@@ -44,7 +46,7 @@ python train.py --task pick_and_place
 
 ### Run game with the model
 ~~~
-python game_driver.py
+python model_control.py
 ~~~
 *You'll need to manual confirm each set of joints before the robot will move.
 You can turn this off but commenting out line 193 in model_control.py

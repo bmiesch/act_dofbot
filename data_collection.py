@@ -8,6 +8,7 @@ from robot import RoboticArm
 import rospy
 import h5py
 from PIL import Image
+from config.config import TASK_CONFIG
 from training.utils import degrees_to_radians, interpolate_joints
 
 
@@ -26,15 +27,21 @@ class DataCollection:
         """
         Saves the images and joint angles (data_buffer) for an iteration directly to an HDF5 file.
         """
+        # Trim the data buffer to the episode length
+        episode_length = TASK_CONFIG['episode_len']
+        self.data_buffer = self.data_buffer[:episode_length]
+
         hdf5_filename = os.path.join(self.task_dir, f'episode_{episode_id}.hdf5')
         
         with h5py.File(hdf5_filename, 'w') as hdf5_file:
+            hdf5_file.attrs['sim'] = True
+
             obs_group = hdf5_file.create_group('observations')
             images_group = obs_group.create_group('images')
-            camera_group = images_group.create_group(self.camera_name)
+
             qpos_dataset = obs_group.create_dataset('qpos', (len(self.data_buffer), 6), dtype='f')
             qvel_dataset = obs_group.create_dataset('qvel', (len(self.data_buffer), 6), dtype='f')  # Placeholder if no velocity data
-            action_dataset = obs_group.create_dataset('action', (len(self.data_buffer), 6), dtype='f')
+            action_dataset = hdf5_file.create_dataset('action', (len(self.data_buffer), 6), dtype='f')
 
             image_list = []
             for i, (image, joints) in enumerate(self.data_buffer):
@@ -58,7 +65,7 @@ class DataCollection:
                 image_list.append(image_array)
 
             # Save all images in a single dataset under the camera name
-            camera_group.create_dataset('images', data=np.array(image_list), dtype='uint8')
+            images_group.create_dataset(self.camera_name, data=np.array(image_list), dtype='uint8')
 
         self.data_buffer = []
 

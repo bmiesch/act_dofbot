@@ -2,6 +2,7 @@ import cv2 as cv
 import threading
 from time import sleep
 import rospy
+import config.config
 from pick_and_place import PickAndPlace
 from data_collection import DataCollection
 
@@ -12,7 +13,7 @@ def process_image(capture, game, color_hsv):
     """Capture and process an image from the camera."""
     _, img = capture.read()
     img = cv.resize(img, (640, 480))
-    if game.dp:
+    if game.dp is not None:
         img = game.calibration.Perspective_transform(game.dp, img)
     cv.imshow("Camera Feed", img)
     return img
@@ -72,7 +73,8 @@ def main():
         print("Interrupted by user")
         game_thread.join()
     finally:
-        data_collection.stop_task_data_collection(-1)
+        if data_collection.running:
+            data_collection.stop_episode_data_collection(-1)
         print("Data collection stopped in finally")
 
 if __name__ == '__main__':
