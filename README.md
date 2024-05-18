@@ -1,10 +1,12 @@
-# Imitation Learning for Yahboom Dofbot
-This repository contains a re-adapatation of [Action Chunking Transformer](https://github.com/tonyzhaozh/act/tree/main) that works for this [Yahboom Dofbot Jetson Nano](https://category.yahboom.net/products/dofbot-jetson_nano?variant=33009975361620). 
+# Action Chunking with Transformer for Yahboom Dofbot
+This repository contains a re-adaptation of [Action Chunking Transformer](https://github.com/tonyzhaozh/act/tree/main) that works for this [Yahboom Dofbot Jetson Nano](https://category.yahboom.net/products/dofbot-jetson_nano?variant=33009975361620). 
 
-Data is collected for training by recording the Robotic Arm completing the _game_ with classical controls. \
+FYI: The repo isn't super polished and you may run into some small errors along the way. If you do, please reach out and I will do my best to update it.
 
-It isn't polished or robust by any means but it works! \
-Instead of using a teleoperated leader arm to collect _action_ data, the _action_ data is simulated by interpolating between the current joint positions and the next joint positions.
+Instead of using Teleoperation:
+- It utilizes the Dofbots pre-packaged SW and traditional controls to record the robot completing the task
+- The data from using the traditional controls is used to train the ACT policy with the below modification
+  - The _action_ data is simulated by interpolating between the current joint positions and the next joint positions after collection
 
 https://github.com/bmiesch/act_dofbot/assets/96878387/80e3dff6-f465-4216-9ad5-688f12d8125b
 
